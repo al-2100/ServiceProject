@@ -1,0 +1,39 @@
+version: "3.9"
+services:
+  user_management:
+    build:
+      context: ./user_management
+      dockerfile: Dockerfile
+    container_name: user_management
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./user_management:/app
+      - ./user_management:/user_management  # Volumen compartido
+    environment:
+      - DATABASE_URL=users.db
+    networks:
+      - service_network
+
+  product_catalog:
+    build:
+      context: ./product_catalog
+      dockerfile: Dockerfile
+    container_name: product_catalog
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./product_catalog:/app
+      - ./:/ServiceProject  # Volumen compartido para todo el proyecto
+    environment:
+      - DATABASE_URL=product_catalog.db
+      - PYTHONPATH=/app:/ServiceProject
+    depends_on:
+      - user_management
+    networks:
+      - service_network
+
+
+networks:
+  service_network:
+    driver: bridge
