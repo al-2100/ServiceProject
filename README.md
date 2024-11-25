@@ -36,3 +36,19 @@ El proyecto está organizado en diferentes carpetas:
 ## Uso de Devcontainer
 
 ![devcontainer](images/devcontainer.png)
+
+## Cómo ejecutar la aplicación
+
+Para ejecutar la aplicación:
+
+```bash
+docker-compose up
+```
+
+## Cómo ejecutar los tests
+
+Para ejecutar los tests:
+
+```bash
+pytest
+```
